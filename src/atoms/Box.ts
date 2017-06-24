@@ -14,10 +14,10 @@ export const joinStyles = (...styles: Style[]) => (theme: Theme) =>
 
 // A conveniance function to allow style inheratance, this was made
 // more complicated by passing around the theme component.
-export const withStyle = (...styles: (Style | Style[])[]) => (theme: Theme) =>
+export const withStyle = (...styles: (Style | Style[] | null)[]) => (theme: Theme) =>
     styles.reduce((total: StyleObject, style: (Style | Style[])) => ({
         ...total,
-        ...((Array.isArray(style) ? joinStyles(...style) : style)(theme))
+        ...((Array.isArray(style) ? joinStyles(...style) : (style || (() => ({}))))(theme))
     }), {})
 
 export type BoxProps = {
@@ -83,6 +83,7 @@ export type BoxProps = {
     overflow?: 'visible' | 'hidden' | 'scroll',
     position?: 'absolute' | 'relative',
     zIndex?: number,
+    boxSizing?: 'content-box' | 'border-box' | 'initial' | 'inherit',
 
     borderStyle?: 'solid' | 'dotted' | 'dashed',
 
@@ -224,6 +225,7 @@ const Box: React.SFC<BoxProps & React.HTMLProps<HTMLDivElement>> = (props, { ren
         position,
         zIndex,
         borderStyle,
+        boxSizing = 'border-box',
 
         borderWidth,
         borderBottomWidth,
@@ -249,12 +251,14 @@ const Box: React.SFC<BoxProps & React.HTMLProps<HTMLDivElement>> = (props, { ren
 
     const boxStyle = {
         ...(emulateReactNative ? emulateReactNativeInBrowser : {}),
-        ...(reduceRhythm(theme.typography.rhythm, { 
+        ...(reduceRhythm(theme.typography.rhythm, {
+            margin,
             marginBottom,
             marginLeft,
             marginRight,
             marginTop,
 
+            padding,
             paddingBottom,
             paddingLeft,
             paddingRight,
@@ -285,6 +289,7 @@ const Box: React.SFC<BoxProps & React.HTMLProps<HTMLDivElement>> = (props, { ren
             position,
             zIndex,
             borderStyle,
+            borderRadius,
             borderBottomWidth,
             borderLeftWidth,
             borderRightWidth,
@@ -294,6 +299,7 @@ const Box: React.SFC<BoxProps & React.HTMLProps<HTMLDivElement>> = (props, { ren
             borderTopLeftRadius,
             borderTopRightRadius,
             flex,
+            boxSizing
         }),
         ...(reduceColors(theme.colors, {
             backgroundColor,

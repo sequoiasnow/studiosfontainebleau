@@ -1,23 +1,24 @@
-import { css } from 'glamor'
+import { renderRule } from './styles'
 import currentTheme from './theme/current' 
 import { ThemeProvider } from './atoms/Theme'
+import { Provider } from 'react-redux'
+import store from './redux/configureStore'
+import fetchInitialData from './redux/fetchData'
 
-import Button from './atoms/Button'
-import SegmentedControl from './atoms/SegmentedControl'
-import Heading from './atoms/Heading'
+import Splash from './organisms/Splash'
+import Listings from './organisms/Listings'
 
+// Get the initial data from the store.
+fetchInitialData(store)
 
-/**
- * Transform the glamor css function into a proper format. 
- */
-const renderRule = (rule: Object) => css(rule).toString()
 
 export default () => (
-  <ThemeProvider renderRule={renderRule} theme={currentTheme}>
-    <div>
-      <SegmentedControl values={['One', 'Two', 'Three']} />
-      <Button>Hello World</Button>
-      <Heading>Hello Boldly</Heading>
-    </div>
-  </ThemeProvider> 
+  <Provider store={store}>
+    <ThemeProvider renderRule={renderRule} theme={currentTheme}>
+      <div>
+        <Splash />
+        <Listings />
+      </div> 
+    </ThemeProvider>
+  </Provider> 
 )  
