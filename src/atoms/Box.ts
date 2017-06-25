@@ -20,13 +20,15 @@ export const withStyle = (...styles: (Style | Style[] | null)[]) => (theme: Them
         ...((Array.isArray(style) ? joinStyles(...style) : (style || (() => ({}))))(theme))
     }), {})
 
-export type BoxProps = {
+export type BoxProps = React.HTMLProps<HTMLDivElement> & {
     // What underlying html or react element to render the box as.
     as?: string // | React.ComponentClass<Object> // -- Some difficulty here somehow.
     // A style object to pass to glamour.
     css?: Style | Array<Style>,
     // Should it emulate react native styling with flexbox?
     emulateReactNative?: boolean,
+    // Let us pass custom classnames too
+    className?: string,
  
     margin?: MaybeRhythm,
     marginHorizontal?: MaybeRhythm,
@@ -78,7 +80,7 @@ export type BoxProps = {
         | 'space-between'
         | 'space-around',
 
-    backgroundColor?: Color,
+    backgroundColor?: string,
     opacity?: number,
     overflow?: 'visible' | 'hidden' | 'scroll',
     position?: 'absolute' | 'relative',
@@ -135,7 +137,7 @@ const reduceValue = (props: BoxProps) => reduce(props, (value) => value)
 const emulateReactNativeInBrowser = {
     display: 'flex',
     flexDirection: 'column',
-    position: 'relative'
+    // position: 'relative'
 }
 
 /**
@@ -177,11 +179,12 @@ const reduceStyle = (theme: Theme, style: StyleObject) =>
         return { ...total, [key]: value }
     }, {})
 
-const Box: React.SFC<BoxProps & React.HTMLProps<HTMLDivElement>> = (props, { renderRule, theme }: BoxContext) => {
+const Box: React.SFC<BoxProps> = (props, { renderRule, theme }: BoxContext) => {
     const {
         as,
         css,
         emulateReactNative = true,
+        className,
 
         margin,
         marginHorizontal,
@@ -310,10 +313,13 @@ const Box: React.SFC<BoxProps & React.HTMLProps<HTMLDivElement>> = (props, { ren
             borderColor, 
             color
         })),
-        ...(reduceStyle(theme, (Array.isArray(css) ? joinStyles(...css) : joinStyles(css))(theme)))
+        ...(reduceStyle(theme, (Array.isArray(css) ? joinStyles(...css) : joinStyles(css))(theme))),
     }
-    const className = renderRule(boxStyle)
-    return React.createElement(as || 'div', { ...restProps, className })
+    const cn = renderRule(boxStyle)
+    return React.createElement(as || 'div', {
+        ...restProps,
+        className: className ? className + ' ' + cn : cn
+    })
 }
 
 Box.contextTypes = {

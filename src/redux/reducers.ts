@@ -6,7 +6,9 @@ import { ActionLanguage, ActionUpdateArray } from './actions'
 export const initialState: StoreShape = {
     language: 'en',
     listings: [],
-    splash: []
+    splash: [],
+    sections: [],
+    city: [],
 } 
 
 /// language reducer
@@ -32,8 +34,16 @@ export const listings = makeReducerForUpdateArray('UPDATE_LISTINGS')
 /// splash reducer
 export const splash = makeReducerForUpdateArray('UPDATE_SPLASH')
 
+/// sections reducer
+export const sections = makeReducerForUpdateArray('UPDATE_SECTIONS')
+
+/// sections reducer
+export const city = makeReducerForUpdateArray('UPDATE_CITY')
+
 export default combineReducers({
     listings,
     splash,
-    language
+    sections,
+    language,
+    city
 })

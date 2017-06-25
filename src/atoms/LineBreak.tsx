@@ -1,25 +1,26 @@
-import Box, { Style, withStyle } from './Box'
+import Box, { Style, withStyle, BoxProps } from './Box'
 
-interface LineBreakProps {
+type LineBreakProps = BoxProps & {
   color?: string,
   marginOverlap?: number,
+  marginVertical?: number,
   css?: Style | Array<Style>
 }
 
 /// Creats a simple <hr /> effect, marginOverlap makes it
 /// stand out passed the content.
-const LineBreak: React.SFC<LineBreakProps> = (props) => (
-  <Box css={withStyle(theme => ({
+const LineBreak: React.SFC<LineBreakProps> = ({ color, marginOverlap, marginVertical = 1, css, ...rest}) => (
+  <Box {...rest} css={withStyle(theme => ({
       height: '1px',
       width: '100%',
-      marginTop: 1,
-      marginBottom: 1,
-      backgroundColor: props.color || theme.colors.secondary,
-      ...(props.marginOverlap ? {
-        width: `${100 + props.marginOverlap * 2}%`,
-        marginLeft: `-${props.marginOverlap}%`,
-        marginRight: `-${props.marginOverlap}%`,
+      marginTop: marginVertical,
+      marginBottom: marginVertical,
+      backgroundColor: color || theme.colors.secondary,
+      ...(marginOverlap ? {
+        width: `${100 + marginOverlap * 2}%`,
+        marginLeft: `-${marginOverlap}%`,
+        marginRight: `-${marginOverlap}%`,
       } : {})
-    }), props.css)} />
+    }), css)} />
 )
 export default LineBreak

@@ -7,7 +7,7 @@ import typography from './typography'
 const theme: Theme = { 
     colors: {
         primary: '#ef4836',
-        secondary: '#f1ab4c',
+        secondary: '#ae85fc',
         success: '#2ecc71',
         warning: '#e67e22',
         error: '#e74c3c',

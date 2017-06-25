@@ -12,8 +12,8 @@ export type TextProps = BoxProps & {
   lineHeight?: number,
   display?: string
   size?: number,
+  transform?: 'none' | 'capitalize' | 'uppercase' | 'lowercase' | 'initial' | 'inherit',
   css?: Style | Array<Style>
-  children?: string | JSX.Element
 }
 
 /**
@@ -31,38 +31,41 @@ const computeFontSizeAndLineHeight = ({ typography }: Theme, size: number) => {
  * The actual text building block, I should point out any changes here will
  * DRAMATICALLY change the entire workflow of the application, enough said.
  */
-const Text: React.SFC<TextProps> = (props, { theme }: ThemeContext) => {
-  const {
-    // Other variables.
-    align,  
-    bold,
-    color = theme.text.color, 
-    decoration,
-    fontFamily = theme.text.fontFamily,
-    italic,
-    display = 'inline',
-    lineHeight,
-    size = 0, // Will default to the standrad font size
-    children,
-    css = () => ({}),
-    ...restProps
-  } = props
-  
-  return (
-    <Box as="span" {...restProps} css={withStyle((theme) => ({
-      color,
-      display,
-      fontFamily: fontFamily === 'alt' ? theme.text.fontFamilyAlt : fontFamily,
-        ...computeFontSizeAndLineHeight(theme, size),
-        ...(align ? { textAlign: align } : null), 
-        ...(bold ? { fontWeight: 'bold' } : null),
-        ...(decoration ? { textDecoration: decoration } : null),
-        ...(italic ? { fontStyle: 'italic' } : null),
-        ...(lineHeight ? { lineHeight } : null),
+const Text: React.SFC<TextProps> =
+  (props, { theme }: ThemeContext) => {
+    const {
+      // Other variables.
+      align,  
+      bold,
+      color = theme.text.color, 
+      decoration,
+      fontFamily = theme.text.fontFamily,
+      italic,
+      display = 'inline',
+      lineHeight, 
+      size = 0, // Will default to the standrad font size
+      transform,
+      children,
+      css = () => ({}),
+      ...restProps
+    } = props
+    
+    return (
+      <Box as="span" {...restProps} css={withStyle((theme) => ({
+          color, 
+          display,
+          fontFamily: fontFamily === 'alt' ? theme.text.fontFamilyAlt : fontFamily, 
+          ...computeFontSizeAndLineHeight(theme, size),
+          ...(transform ? { textTransform: transform } : null),
+          ...(align ? { textAlign: align } : null), 
+          ...(bold ? { fontWeight: 'bold' } : null), 
+          ...(decoration ? { textDecoration: decoration } : null), 
+          ...(italic ? { fontStyle: 'italic' } : null), 
+          ...(lineHeight ? { lineHeight } : null),
       }), css)} emulateReactNative={false}>
       {children} 
     </Box>
-  )
+    )
 } 
 
 export default withTheme<TextProps>(Text)

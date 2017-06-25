@@ -10,5 +10,5 @@ export const perfectBackgroundImage = (fixed = false) => ({
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center center',
-    backgroundAttatchment: fixed ? 'fixed' : 'scroll'
+    backgroundAttachment: fixed ? 'fixed' : 'scroll'
 })

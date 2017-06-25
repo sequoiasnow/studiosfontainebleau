@@ -22,9 +22,27 @@ export interface SplashType {
     language?: Language
 }
 
+/// The type of a typical section header.
+export interface SectionType {
+    title: string,
+    subtitle: string,
+    language?: Language,
+    name?: string // unique key.
+}
+
+/// A typical location nearby in the city or paris.
+export interface CityType {
+    title: string,
+    description: string,
+    image: string,
+    language?: Language
+}
+
 /// The shape of the redux store
 export interface StoreShape {
     language: Language,
     listings: Array<ListingType>,
-    splash: Array<SplashType>
+    splash: Array<SplashType>,
+    sections: Array<SectionType>,
+    city: Array<CityType> 
 }

@@ -8,7 +8,17 @@ interface ListingsProps {
 }
 
 const Listings: React.SFC<ListingsProps> = ({ listings }) => (
-  <Box width="100%" flexDirection="row" justifyContent="center" alignItems="flex-start">
+  <Box css={theme => ({
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      '@media (max-width: 800px)': {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+      }
+    })}>
     {listings.map((listing: ListingType, i: number) => (
        <Listing key={i} listing={listing} />
      ))}
