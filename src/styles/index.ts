@@ -4,8 +4,8 @@ import globalRules from './global'
 // Adds a reset.css
 import 'glamor/reset'
 
-// Render the global rules.
-css.global('body, html', globalRules)
+// Render the global rules. 
+globalRules(css.global)
 
 // Export the renderRule command to be passed to all components.
 export const renderRule = (rule: Object) => css(rule).toString()

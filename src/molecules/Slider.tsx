@@ -16,12 +16,12 @@ const slideStyle: Style = theme => ({
   left: 0,
   width: '100%',
   height: '100%',
-  backgroundColor: theme.colors.white,
+  backgroundColor: theme.colors.black,
   ...centerContent()
 })
 
 export default class Slider extends React.Component<SliderProps, SliderState> {
-  static slideDuration = 3000
+  static slideDuration = 6000
   private _timeout: number
   
   constructor(props: SliderProps) {
@@ -31,12 +31,14 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
     this._timeout = setTimeout(this.goToSlide, Slider.slideDuration)
   } 
 
-  public goToSlide(index?: number): void {
-    clearTimeout(this._timeout)
-    const { si } = this.state
-    if ( si >= this.props.children.length )
+  public goToSlide(index: number | null = null): void {
+    clearTimeout(this._timeout) 
+    const { si } = this.state 
+    if ( si >= (this.props.children.length - 1) ) {
       this.setState({ si: 0 })
-    this.setState({ si: index || si + 1 })
+    } else { 
+      this.setState({ si: index === null ? si + 1 : index })
+    }
     this._timeout = setTimeout(this.goToSlide, Slider.slideDuration)
   }
 
@@ -84,15 +86,16 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
                    borderRadius: 1,
                    overflow: 'hidden',
                    position: 'relative', 
-                   ':after': {
-                     content: '',
+                   '::after': {
+                     content: "''",
                      position: 'absolute',
-                     top: 0,
-                         left: 0,
-                         height: '100%',
-                         width: si == i ? '100%' : 0,
-                         transition: `width ${Slider.slideDuration}ms linear`
-                       }
+                     top: 0, 
+                     left: 0, 
+                     height: '100%',  
+                     width: si == i ? '100%' : 0, 
+                     transition: (si == i) ? `width ${Slider.slideDuration}ms linear`: '',
+                     backgroundColor: theme.colors.primary
+                   }
                      })} />
                  </Box>
                ))}

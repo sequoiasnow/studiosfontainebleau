@@ -11,8 +11,8 @@ const theme: Theme = {
         success: '#2ecc71',
         warning: '#e67e22',
         error: '#e74c3c',
-        black: '#2c3e50',
-        white: '#ecf0f1',
+        black: '#282830',
+        white: '#fafafa',
         grey: '#bdc3c7'
     },
     typography: typography({
