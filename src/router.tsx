@@ -22,6 +22,7 @@ export default () => (
             <Listings />
             <SectionDivider name="city" />
             <City />
+            <SectionDivider name="about" />
           </div> 
         )}/>
     <Route path="/listing/:index/gallery" component={({ match }: any) => (

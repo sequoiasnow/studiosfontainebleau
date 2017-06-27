@@ -30,8 +30,7 @@ const Splash: React.SFC<SplashProps> = ({ splash, language, changeLanguage }) =>
     <Box css={theme => ({
         width: '100vw',  
         height: '100vh', 
-        backgroundImage: splash.image ? `url(${splash.image})` : '',
-        ...perfectBackgroundImage(true),
+        ...perfectBackgroundImage(splash.image ? splash.image : '', true),
         ...centerContent()
       })}> 
       <Box maxWidth="600px">

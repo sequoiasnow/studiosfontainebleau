@@ -78,7 +78,7 @@ export default class Listing extends React.Component<ListingProps, ListingState>
             <LineBreak color="white" marginVertical={0} />
             <Box padding={1} flexDirection="row" alignItems="center"> 
               <Text marginLeft="2px">{listing.price}</Text>
-            </Box>  
+            </Box>
           </Box>
         </Box>
       </Box> 

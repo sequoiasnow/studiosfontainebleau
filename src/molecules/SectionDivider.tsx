@@ -20,7 +20,7 @@ const SectionDivider: React.SFC<SectionProps> = ({ section }) => (
     <Box>
       <Text size={4} padding={1} fontFamily="alt" color="secondary" align="center">{section.title}</Text>
       <LineBreak marginOverlap={20} />
-      <Text size={1} color="black" align="center">{section.subtitle}</Text>
+      <Text size={1} color="black" align="center" maxWidth="800px">{section.subtitle}</Text>
     </Box>
   </Box> 
 ) 

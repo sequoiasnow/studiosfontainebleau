@@ -51,12 +51,19 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
              const transform = i == si ? 'translateX(0) scale(1)' 
                              : (i < si ? `translateX(-${15 + 3 * i}vw) scale(0.8)`
                               : `translateX(100vw) scale(0.8)`)
+             console.log(transform)
              return (
-               <Box css={[slideStyle, theme => ({
-                   transform
-                 })]} key={i} onClick={() => this.goToSlide(i)}>
+               <Box css={theme => ({
+                   transition: 'transform 0.5s ease',
+                   position: 'absolute',
+                   top: 0,
+                   left: 0,
+                   width: '100%',
+                   height: '100%', 
+                   ...centerContent()
+                 })} style={{ transform }} key={i}>
                  {child}
-               </Box>
+               </Box> 
              )
            })} 
         </Box>
@@ -69,6 +76,8 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
+            zIndex: 9999,
+            
           })}>
           {React.Children.map(this.props.children, (c, i: number) => (
              <Box onClick={() => this.goToSlide(i)} css={theme => ({
@@ -86,7 +95,7 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
                    borderRadius: 1,
                    overflow: 'hidden',
                    position: 'relative', 
-                   '::after': {
+                   ':after': {
                      content: "''",
                      position: 'absolute',
                      top: 0, 

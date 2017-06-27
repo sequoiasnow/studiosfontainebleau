@@ -1,7 +1,5 @@
 import { css } from 'glamor'
 import globalRules from './global'
-import './plugins'
-
 // Adds a reset.css
 import 'glamor/reset'
 

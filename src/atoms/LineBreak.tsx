@@ -19,7 +19,12 @@ const LineBreak: React.SFC<LineBreakProps> = ({ color, marginOverlap, marginVert
       ...(marginOverlap ? {
         width: `${100 + marginOverlap * 2}%`,
         marginLeft: `-${marginOverlap}%`,
-        marginRight: `-${marginOverlap}%`,
+        marginRight: `-${marginOverlap}%`, 
+        '@media (max-width: 800px)': {
+          marginLeft: 0,
+          marginRight: 0,
+          width: '100%'
+        }
       } : {})
     }), css)} />
 )

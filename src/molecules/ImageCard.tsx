@@ -10,7 +10,16 @@ interface ImageCardProps {
 }
 
 const ImageCard: React.SFC<ImageCardProps> = (props) => (
-  <Box maxWidth="400px" width="100%" padding={1}>
+  <Box css={theme => ({
+      maxWidth: '500px',
+      minWidth: '400px',
+      width: '100%',
+      padding: 1,
+      '@media (max-width: 800px)': {
+        maxWidth: '100vw',
+        minWidth: '90vw'
+      }
+    })}>
     <Box borderRadius={5} backgroundColor="white">
       <Image src={props.image} width="100%" height="auto" />
       {props.description && 
