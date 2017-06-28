@@ -2,6 +2,7 @@ import { rgba } from '../styles/functions'
 import Box from '../atoms/Box'
 import LineBreak from '../atoms/LineBreak'
 import Text from '../atoms/Text'
+import Button from './Button'
 import Icon from '../atoms/FAIcon'
 import Heading from '../atoms/Heading'
 import Image from '../atoms/Image' 
@@ -9,10 +10,12 @@ import ImageCard from './ImageCard'
 import { ListingType, Language } from '../types'
 import { connect } from 'react-redux'
 import { MdAddAPhoto } from 'react-icons/lib/md'
+import { Link } from 'react-router-dom'
 
 interface ListingProps {  
   listing: ListingType,
-  color?: string 
+  color?: string,
+  index: number
 }
 
 interface ListingState {
@@ -23,17 +26,16 @@ interface ListingState {
 export default class Listing extends React.Component<ListingProps, ListingState> {
   constructor(props: ListingProps) {
     super(props)
-
     this.state = { galleryVisible: false } 
-  }
+  } 
 
   private _changeGalleryVisibility(visible: boolean): void {
     this.setState({ galleryVisible: visible })
     console.log(this.state)
-  }
+  } 
   
   render() {
-    const { listing, color = '#000' }: ListingProps = this.props
+    const { listing, color = '#000', index }: ListingProps = this.props
     return (
       <Box padding={1}> 
         <Box borderRadius={5} overflow="hidden"> 
@@ -76,8 +78,11 @@ export default class Listing extends React.Component<ListingProps, ListingState>
               <Text>{listing.description}</Text> 
             </Box>
             <LineBreak color="white" marginVertical={0} />
-            <Box padding={1} flexDirection="row" alignItems="center"> 
+            <Box padding={1} flexDirection="row" alignItems="center" justifyContent="space-between"> 
               <Text marginLeft="2px">{listing.price}</Text>
+              <Link to={`/listing/${index}`}>
+                <Button enTitle="Learn More" frTitle="plus" />
+              </Link>
             </Box>
           </Box>
         </Box>

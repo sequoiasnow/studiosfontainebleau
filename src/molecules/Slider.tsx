@@ -29,7 +29,12 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
     this.state = { si: 0 }
     this.goToSlide = this.goToSlide.bind(this)
     this._timeout = setTimeout(this.goToSlide, Slider.slideDuration)
-  } 
+  }
+
+  componenetDidUnmount() {
+    // Can not call setstate on an unmounted component
+    clearTimeout(this._timeout)
+  }
 
   public goToSlide(index: number | null = null): void {
     clearTimeout(this._timeout) 
@@ -45,7 +50,7 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
   render() {
     const { si } = this.state
     return (
-      <Box position="relative" width="100%" height="700px">
+      <Box position="relative" maxWidth="100vw" width="100%" height="700px" overflow="hidden">
         <Box>
           {React.Children.map(this.props.children, (child: JSX.Element, i: number) => {
              const transform = i == si ? 'translateX(0) scale(1)' 
@@ -105,11 +110,11 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
                      transition: (si == i) ? `width ${Slider.slideDuration}ms linear`: '',
                      backgroundColor: theme.colors.primary
                    }
-                     })} />
-                 </Box>
-               ))}
-            </Box>
-          </Box>
-        )
-      }
+                 })} />
+             </Box>
+           ))}
+        </Box>
+      </Box>
+    )
+  }
 }

@@ -11,6 +11,7 @@ import SectionDivider from './molecules/SectionDivider'
 import City from './organisms/City'
 import Gallery from './molecules/Gallery'
 import NavigationBar from './molecules/NavigationBar'
+import ListingPage from './organisms/ListingPage'
 
 export default () => (
   <Router>
@@ -25,10 +26,10 @@ export default () => (
             <SectionDivider name="about" />
           </div> 
         )}/>
-    <Route path="/listing/:index/gallery" component={({ match }: any) => (
+    <Route path="/lisitng/:index" component={({ match }: any) => (
         <Box>
           <NavigationBar selected="listings" back="/" />
-          <Gallery index={parseInt(match.params.index, 10)} />
+          <ListingPage index={parseInt(match.params.index, 10)} />
         </Box>
       )} />
     </Box>

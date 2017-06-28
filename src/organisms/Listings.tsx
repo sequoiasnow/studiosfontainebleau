@@ -20,7 +20,7 @@ const Listings: React.SFC<ListingsProps> = ({ listings }) => (
       }
     })}>
     {listings.map((listing: ListingType, i: number) => (
-       <Listing key={i} listing={listing} color={(['#e6da7b', '#9a5cb4', '#f19b2c'])[i]}/>
+       <Listing key={i} index={i} listing={listing} color={(['#e6da7b', '#9a5cb4', '#f19b2c'])[i]}/>
      ))}
   </Box> 
 )

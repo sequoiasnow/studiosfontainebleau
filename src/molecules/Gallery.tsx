@@ -6,22 +6,12 @@ import Text from '../atoms/Text'
 import { StoreShape } from '../types'
 import ImageCard from './ImageCard'
 
-interface Picture {
-  description: string
-}
-
-type OwnProps = {
-  index: number
-}
-
-type StateProps = {
+type GalleryProps = {
   pictures: {
     image: string,
     description?: string,
   }[]
 }
-
-type GalleryProps = StateProps & OwnProps
 
 class Gallery extends React.Component<GalleryProps, {}> {
   constructor(props: GalleryProps) {
@@ -50,15 +40,4 @@ class Gallery extends React.Component<GalleryProps, {}> {
     )
   }
 }
-
-const mapStateToProps = (state: StoreShape, ownProps?: OwnProps) => {
-  console.log(ownProps)
-  console.log(state.listings) 
-  return { pictures: state.listings.length > ownProps.index ? state.listings[ownProps.index].pictures.map(p => ({
-    image: p
-  })) : [] }
-}
-
-// Fix this later
-export default connect<StateProps, {}, OwnProps>(mapStateToProps)(Gallery as any)
-
+export default Gallery
