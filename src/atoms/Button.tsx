@@ -1,4 +1,5 @@
-import Box, { joinStyles, Style } from './Box'
+import { Style } from './Box'
+import Text from './Text'
 
 export interface ButtonProps {
   onClick?: () => void,
@@ -7,17 +8,16 @@ export interface ButtonProps {
 }
 
 const Button: React.SFC<ButtonProps> = ({ onClick, style, children }) => (
-  <Box css={[style, (theme) => ({
+  <Text css={[style, (theme) => ({
       padding: 1,
       backgroundColor: theme.colors.primary,
-      textAlign: 'center',
-      fontSize: 1, 
+      textAlign: 'center', 
       borderRadius: theme.borderRadius,
       display: 'inline-block',
       cursor: 'pointer',
       color: theme.colors.white
     })]}> 
     {children}  
-  </Box>
+  </Text>
 )
 export default Button

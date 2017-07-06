@@ -23,8 +23,10 @@ export interface ActionUpdateArray extends Action {
 function makeRetrieveListAction(ref: string, type: string): ThunkAction<void, void, void> {
     return (dispatch) => {
         return database.ref(ref).once('value', (snap: firebase.database.DataSnapshot) => {
-            console.log(snap.val())
-            dispatch({ type, data: snap.val() })
+            dispatch({ type, data: snap.val().map((v: any, i: number) => ({
+                ...v,
+                index: i
+            }))})
         }) 
     }
 }

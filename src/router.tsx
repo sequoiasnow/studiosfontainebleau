@@ -26,12 +26,14 @@ export default () => (
             <SectionDivider name="about" />
           </div> 
         )}/>
-    <Route path="/lisitng/:index" component={({ match }: any) => (
-        <Box>
-          <NavigationBar selected="listings" back="/" />
-          <ListingPage index={parseInt(match.params.index, 10)} />
-        </Box>
-      )} />
+      <Route path="/listing/:index" component={({ match }: any) => {
+              console.log(match, match.params.index) 
+              return (
+                  <Box>
+                      <ListingPage index={parseInt(match.params.index, 10)} />
+                  </Box>
+          )
+      }} />
     </Box>
   </Router>
 )

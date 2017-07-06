@@ -21,22 +21,38 @@ class Gallery extends React.Component<GalleryProps, {}> {
   render() {
     const { pictures }: GalleryProps = this.props
     return (
-      <Box width="100%" css={theme => centerContent()}>
-        <Box flexDirection="row" justifyContent="space-between" alignItems="flex-start">
-          <Box flexDirection="column" padding={1}>
-            {pictures.filter((p, i) => i % 3 == 0).map(
-               (picture, i) => <ImageCard key={i} {...picture} />)} 
-          </Box>
-          <Box flexDirection="column" padding={1} marginHorizontal={-2}> 
-            {pictures.filter((p, i) => i % 3 == 1).map(
-               (picture, i) => <ImageCard key={i} {...picture} />)}
-          </Box>
-          <Box flexDirection="column" padding={1}>
-            {pictures.filter((p, i) => i % 3 == 2).map(
-               (picture, i) => <ImageCard key={i} {...picture} />)}
-          </Box> 
+        <Box width="100%" css={theme => centerContent()}>
+            <Box css={theme => ({
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'flex-start',
+                    '@media (max-width: 800px)': {
+                        flexDirection: 'column',
+                        justifyContent: 'flex-start',
+                        alignItems: 'center'
+                    }
+            })}>
+                <Box flexDirection="column" padding={1}>
+                    {pictures.filter((p, i) => i % 3 == 0).map(
+                         (picture, i) => <ImageCard key={i} {...picture} />)} 
+                </Box>
+                <Box flexDirection="column" padding={1} css={theme => ({
+                        marginLeft: -1,
+                        marginRight: -1,
+                        '@media (max-width: 800px)': {
+                            marginLeft: 0,
+                            marginRight: 0,
+                        }
+                })}> 
+                    {pictures.filter((p, i) => i % 3 == 1).map(
+                         (picture, i) => <ImageCard key={i} {...picture} />)}
+                </Box>
+                <Box flexDirection="column" padding={1}>
+                    {pictures.filter((p, i) => i % 3 == 2).map(
+                         (picture, i) => <ImageCard key={i} {...picture} />)}
+                </Box> 
+            </Box>
         </Box>
-      </Box>
     )
   }
 }

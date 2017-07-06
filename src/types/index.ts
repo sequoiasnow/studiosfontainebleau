@@ -9,7 +9,8 @@ export interface ListingType {
     pictures: Array<string>,
     primaryPicture: string,
     amenities: Array<string>,
-    price: string | number
+    price: string | number,
+    index?: number
     language?: Language
 }
 

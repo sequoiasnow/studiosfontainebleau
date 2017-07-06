@@ -36,6 +36,10 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
     clearTimeout(this._timeout)
   }
 
+  componentWillUnmount() {
+    clearTimeout(this._timeout)
+  }
+
   public goToSlide(index: number | null = null): void {
     clearTimeout(this._timeout) 
     const { si } = this.state 
@@ -56,7 +60,6 @@ export default class Slider extends React.Component<SliderProps, SliderState> {
              const transform = i == si ? 'translateX(0) scale(1)' 
                              : (i < si ? `translateX(-${15 + 3 * i}vw) scale(0.8)`
                               : `translateX(100vw) scale(0.8)`)
-             console.log(transform)
              return (
                <Box css={theme => ({
                    transition: 'transform 0.5s ease',

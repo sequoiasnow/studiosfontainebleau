@@ -1,0 +1,18 @@
+* TODO Listings Page
+The listings page should contain information about the listing as well as
+a booking option that sends an email. /There shall be no caledner unless
+an npm package is found./
+
+** DONE Create Listings Page For Browser
+** DONE Add Gallery view to the listings page
+For this one it might be simpler to escue bourgeosie practices and use 
+glamor directly...
+
+** TODO Add Booking sequence
+Click Book -> Enter Dates -> Enter Message -> Open Email
+
+* DONE Make .htaccess reroute all trafic towards index.html
+This isn't as important, indexing pages for search engine isn't that
+necessary
+
+* TODO Fix Mobile sidebar.
