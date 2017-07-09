@@ -32,6 +32,7 @@ function makeRetrieveListAction(ref: string, type: string): ThunkAction<void, vo
 }
 
 export const updateListings = () => makeRetrieveListAction('/listings', 'UPDATE_LISTINGS')
-export const updateSplash = () => makeRetrieveListAction('/splash', 'UPDATE_SPLASH')
+export const updateSplash   = () => makeRetrieveListAction('/splash', 'UPDATE_SPLASH')
 export const updateSections = () => makeRetrieveListAction('/sections', 'UPDATE_SECTIONS')
-export const updateCity = () => makeRetrieveListAction('/city', 'UPDATE_CITY')
+export const updateCity     = () => makeRetrieveListAction('/city', 'UPDATE_CITY')
+export const updateGeneral  = () => makeRetrieveListAction('/general', 'UPDATE_GENERAL')

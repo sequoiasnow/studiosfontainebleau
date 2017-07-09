@@ -5,26 +5,27 @@ import Heading from '../atoms/Heading'
 import Button from '../atoms/Button'
 import LineBreak from '../atoms/LineBreak'
 import Gallery from '../molecules/Gallery'
-import { StoreShape, ListingType } from '../types'
+import { StoreShape, ListingType, General } from '../types'
 import { connect } from 'react-redux'
 import Amenities from '../molecules/Amenities'
 import NavigationBar from '../molecules/NavigationBar'
+import DisqusThread from '../molecules/DisqusThread'
 
 
 interface StateProps {
-  listing?: ListingType
+    listing?: ListingType,
+    general?: General
 }
 
 interface OwnProps {
-  index: number
+    index: number,
+    path: string
 }
 
 type Props = OwnProps & StateProps
 
 const ListingPage: React.SFC<Props> = (props) => {
-    console.log(props)
-
-    const { listing } = props
+    const { listing, general, path }: Props = props
 
     return (
         <Box>
@@ -43,16 +44,34 @@ const ListingPage: React.SFC<Props> = (props) => {
                         <Amenities amenities={listing.amenities} />
                     </Box>
                     <LineBreak />
-                    <Button onClick={() => alert('Show Booking')}>
-                        Book
-                    </Button>
+                    <Box flexDirection="row" justifyContent="flex-end">
+                        <a href={general && listing ? `mailto:${general.bookingEmail}?Subject=${general.howYouSayBook + '%20' + listing.name.replace(' ', '%20')}` : ''}
+                           target="_top">
+                            <Button>
+                                {general ? general.howYouSayBook : ''}
+                            </Button> 
+                        </a>
+                    </Box>
                 </Box>
             </Box>
             <LineBreak />
             <Gallery pictures={listing.pictures.map(image => ({ image }))} />
+            <LineBreak />
+            <Box maxWidth="100vw"> 
+                <Box maxWidth="800px" width="100%" marginLeft="auto" marginRight="auto">
+                    {general && <DisqusThread
+                                    id={(listing.name + ' ' + listing.language).toLowerCase().replace(' ', '-')}
+                                    title="Example Title"
+                                    path={path}
+                                    shortname={general.disqusShortName}
+                                    websiteUrl={general.disqusUrl} />}
+                </Box>
+            </Box>
         </Box>
     )
 }
+
+
 
 const mapStateToProps = (state: StoreShape, ownProps?: OwnProps) => ({
     listing: state.listings[ownProps.index] || {
@@ -62,7 +81,12 @@ const mapStateToProps = (state: StoreShape, ownProps?: OwnProps) => ({
         primaryPicture: '',
         amenities: [],
         price: 'Loading...'
-    }
+    },
+    general: state.general.filter(l => l.language == state.language)[0] || null
 })
+
+
+
+
 
 export default connect<StateProps, {}, OwnProps>(mapStateToProps)(ListingPage)

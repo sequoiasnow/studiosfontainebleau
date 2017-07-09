@@ -26,11 +26,10 @@ export default () => (
             <SectionDivider name="about" />
           </div> 
         )}/>
-      <Route path="/listing/:index" component={({ match }: any) => {
-              console.log(match, match.params.index) 
+      <Route path="/listing/:index" component={(args: any) => {
               return (
                   <Box>
-                      <ListingPage index={parseInt(match.params.index, 10)} />
+                      <ListingPage path={args.location.pathname} index={parseInt(args.match.params.index, 10)} />
                   </Box>
           )
       }} />

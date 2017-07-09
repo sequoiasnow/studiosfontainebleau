@@ -8,42 +8,47 @@ export const initialState: StoreShape = {
     listings: [],
     splash: [],
     sections: [],
-    city: [],
+    city: [], 
+    general: [],
 } 
 
-/// language reducer
-export function language(lang: Language = 'en', action: ActionLanguage): Language {
-    if ( action.type === 'UPDATE_LANGUAGE' )
-        return action.language
-    return lang
-}
-
-/// Conveniance function to create a reducer to respond to something from
-/// makeRetrieveListAction
-function makeReducerForUpdateArray(type: string) {
-    return (array: any[] = [], action: ActionUpdateArray) => {
-        if ( action.type === type )
-            return action.data
-        return array
+    /// language reducer
+    export function language(lang: Language = 'en', action: ActionLanguage): Language {
+        if ( action.type === 'UPDATE_LANGUAGE' )
+            return action.language
+        return lang
     }
-}
 
-/// listings reducer
-export const listings = makeReducerForUpdateArray('UPDATE_LISTINGS')
+    /// Conveniance function to create a reducer to respond to something from
+    /// makeRetrieveListAction
+    function makeReducerForUpdateArray(type: string) {
+        return (array: any[] = [], action: ActionUpdateArray) => {
+            if ( action.type === type )
+                return action.data
+            return array
+        }
+    }
 
-/// splash reducer
-export const splash = makeReducerForUpdateArray('UPDATE_SPLASH')
+    /// listings reducer
+    export const listings = makeReducerForUpdateArray('UPDATE_LISTINGS')
 
-/// sections reducer
-export const sections = makeReducerForUpdateArray('UPDATE_SECTIONS')
+    /// splash reducer
+    export const splash = makeReducerForUpdateArray('UPDATE_SPLASH')
 
-/// sections reducer
-export const city = makeReducerForUpdateArray('UPDATE_CITY')
+    /// sections reducer
+    export const sections = makeReducerForUpdateArray('UPDATE_SECTIONS')
 
-export default combineReducers({
-    listings,
-    splash,
-    sections,
-    language,
-    city
-})
+    /// city reducer
+    export const city = makeReducerForUpdateArray('UPDATE_CITY')
+
+    /// general reducer
+    export const general = makeReducerForUpdateArray('UPDATE_GENERAL')
+
+    export default combineReducers({
+        listings,
+        splash,
+        sections,
+        language,
+        city,
+        general
+    })

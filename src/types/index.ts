@@ -10,6 +10,7 @@ export interface ListingType {
     primaryPicture: string,
     amenities: Array<string>,
     price: string | number,
+    comments?: string,
     index?: number
     language?: Language
 }
@@ -39,11 +40,22 @@ export interface CityType {
     language?: Language
 }
 
+/// General settings for the application.
+export interface General {
+    disqusShortName: string,
+    disqusUrl: string,
+    bookingEmail: string,
+    howYouSayBook: string,
+    howYouSayMoreInfo: string,
+    language: Language
+}
+
 /// The shape of the redux store
 export interface StoreShape {
     language: Language,
     listings: Array<ListingType>,
     splash: Array<SplashType>,
     sections: Array<SectionType>,
-    city: Array<CityType> 
+    city: Array<CityType>,
+    general: Array<General>
 }

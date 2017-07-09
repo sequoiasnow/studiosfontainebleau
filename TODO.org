@@ -16,3 +16,6 @@ This isn't as important, indexing pages for search engine isn't that
 necessary
 
 * TODO Fix Mobile sidebar.
+* TODO Add CMS Page for the about section.
+* TODO Add CMS Page for global things
+Mainly stuff like how to say book in French, or what email to use.
